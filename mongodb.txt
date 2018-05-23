@@ -1,0 +1,16 @@
+mongodb 开启密码认证远程连接失败 
+
+先查看mongodb版本
+
+db.system.version.find()
+
+需要更新一下版本有 
+db.system.version.update({"_id":"authSchema"},{$set:{"currentVersion":3}})
+
+
+来源
+https://www.cnblogs.com/chenjianxiang/p/6909236.html
+
+
+
+

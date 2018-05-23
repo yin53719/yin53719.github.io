@@ -1,0 +1,36 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>无标题文档</title>
+</head>
+
+<body>
+
+<style>
+.sw {width:60px; height:20px; background:#c8c8c8; border-radius:10px;}
+.sw .swe {width:45px; height:20px; line-height:20px; border-radius:10px; background:#00ca4f; transition:all .2s; color:#fff; text-align:center;}
+.sw .swe .span1 { display:block;}
+.sw .swe .span2 { display:none;}
+.sw.hover .swe { margin-left:15px;}
+.sw.hover .swe { background:#ed3f3e;}
+.sw.hover .swe .span1 { display:none;}
+.sw.hover .swe .span2 { display:block;}
+</style>
+
+<div class="sw">
+	<div class="swe"><span class="span1" data-val="1">开启</span><span class="span2" data-val="2">关闭</span></div>
+
+</div>
+</body>
+</html>
+<script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+<script>
+	$(".sw").click(function(){
+		var t = $(this),
+			h = $(this).hasClass("hover");
+			t.toggleClass("hover");
+	})
+
+
+</script>

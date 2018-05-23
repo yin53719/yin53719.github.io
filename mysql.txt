@@ -1,0 +1,6 @@
+mysql 使用手册
+
+1，修改密码：grep 'temporary password' /var/log/mysqld.log 获取临时密码
+2，根据 获取的临时密码 修改root账户密码 alter user 'root'@'localhost' identified by 'Yin53719.';
+3，创建用户 并授权远程登录权限 grant all privileges on *.* to 'yinzc'@'%' identified by 'Yinzc53719.' with grant option;
+4，创建用户 只用本地登录权限 grant all privileges on *.* to 'alksk'@'localhost' identified by 'Alksk53719.' with grant option;

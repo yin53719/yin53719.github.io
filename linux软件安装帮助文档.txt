@@ -1,0 +1,9 @@
+<a href="http://www.yiibai.com/cordova/cordova_camera.html" target="_blank">Cordova教程</a>
+
+<a href="http://www.centoscn.com/mysql/2016/0626/7537.html" target="_blank">CentOS7下安装MySQL5.7安装与配置（YUM）</a>
+
+<a href="https://www.cnblogs.com/chenjianxiang/p/6909236.html" target="_blank">mongodb3.4 远程连接认证失败</a>
+
+<a href="https://www.jianshu.com/p/79caa1cc49a5" target="_blank">MongoDB 用户名密码登录</a>
+
+<a href="https://docs.mongodb.com/manual/tutorial/manage-users-and-roles/" target="_blank">mongodb权限角色清单</a>
