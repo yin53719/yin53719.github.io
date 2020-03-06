@@ -72,32 +72,10 @@ var sub=
   
 sub.test.call(add,3,1); 
 
-4， Closures (闭包)是使用被作用域封闭的变量，函数，闭包等执行的一个函数的作用域。通常我们用和其相应的函数来指代这些作用域。(可以访问独立数据的函数)
-https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Closures
+4， Closures (闭包)
 
-http://www.ruanyifeng.com/blog/2009/08/learning_javascript_closures.html
-
-闭包可以用在许多地方。它的最大用处有两个，
-
-一个是可以读取函数内部的变量，
-function f1(){
-
-  var n=999;
-
-  function f2(){
-    alert(n); 
-  }
-
-  return f2;
-
-}
-
-var result=f1();
-
-result(); // 999
-
-另一个就是让这些变量的值始终保持在内存中。
-
+执行外包函数，返回内部函数，内部函数可以读取外部函数私有变量
+     可以实现函数的嵌套，实现私有变量，连接内部函数与外部函数
 
 5,异常处理
 
@@ -116,9 +94,5 @@ try {
 浅谈深拷贝和浅拷贝（js）
 
 如何区分深拷贝与浅拷贝？简单点来说，就是假设B复制了A，当修改A时，看B是否会发生变化，如果B也跟着变了，说明是浅拷贝，如果B没变，那就是深拷贝。深入点来说，就是B复制了A，如果B复制的是A的引用，那就是浅拷贝，如果B复制的是A的本体，那就是深拷贝。在深入了解深拷贝和浅拷贝之前，我们先得了解堆栈和数据类型
---------------------- 
-作者：奔跑吧、GZB 
-来源：CSDN 
-原文：https://blog.csdn.net/qq_41635167/article/details/82943223 
-版权声明：本文为博主原创文章，转载请附上博文链接！
+
 
