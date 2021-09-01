@@ -1,0 +1,53 @@
+<html>
+
+<head>
+    <script src="https://cdn.jsdelivr.net/npm/gpu.js@latest/dist/gpu-browser.min.js"></script>
+</head>
+
+<body>
+
+</body>
+<script>
+    // GPU is a constructor and namespace for browser
+    const getArrayValues = () => {
+            
+        // 在此处创建2D arrary
+        const values = [[], []]
+
+        // 将值插入第一个数组
+        for (let y = 0; y < 600; y++) {
+            values[0].push([])
+            values[1].push([])
+
+            // 将值插入第二个数组
+            for (let x = 0; x < 600; x++) {
+                values[0][y].push(Math.random())
+                values[1][y].push(Math.random())
+            }
+        }
+
+        // 返回填充数组
+        return values
+    }
+
+    const gpu = new GPU();
+
+    // 使用 `createKernel()` 方法将数组相乘
+    const multiplyLargeValues = gpu.createKernel(function (a, b) {
+
+        // console.log(this.thread);
+        let sum = 0;
+        for (let i = 0; i < 10; i++) {
+            sum += a[this.thread.y][i] * b[i][this.thread.x];
+        }
+        return sum;
+    }).setOutput([10, 10]);
+
+    const largeArray = getArrayValues()
+    const out = multiplyLargeValues(largeArray[0], largeArray[1]);
+
+    console.log(out) // 将元素记录在数组的第x行和第y列
+    // console.log(out[10][10]) // 记录输出数组第10行和第12列的元素
+</script>
+
+</html>
