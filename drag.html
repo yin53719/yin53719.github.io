@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    <div id="box" style="background: #334;width: 100px;height: 100px;position: absolute;cursor: move;"></div>
+</body>
+<script type="text/javascript">
+	(function () {
+		var dragging = false
+		var boxX, boxY, mouseX, mouseY, offsetX, offsetY
+		var box = document.getElementById('box')
+
+		// ��갴�µĶ���
+		box.onmousedown = down
+		// �����ƶ�����
+		document.onmousemove = move
+		// �ͷ����Ķ���
+		document.onmouseup = up
+
+		// ��갴�º�ĺ���,eΪ�¼�����
+		function down(e) {
+			dragging = true
+			
+			// ��ȡԪ�����ڵ�����
+			boxX = box.offsetLeft
+			boxY = box.offsetTop
+
+			// ��ȡ������ڵ�����
+			mouseX = parseInt(getMouseXY(e).x)
+			mouseY = parseInt(getMouseXY(e).y)
+
+			// ������Ԫ������ϱ�Ե������
+			offsetX = mouseX - boxX
+			offsetY = mouseY - boxY
+		}
+
+		// ����ƶ����õĺ���
+		function move(e){
+			if (dragging) {
+				// ��ȡ�ƶ����Ԫ�ص�����
+				var x = getMouseXY(e).x - offsetX
+				var y = getMouseXY(e).y - offsetY
+
+				// ������ƶ�λ�õĴ�С�� ��֤Ԫ�ز��ᳬ�����ƶ���Χ
+				var width = document.documentElement.clientWidth - box.offsetWidth
+				var height = document.documentElement.clientHeight - box.offsetHeight
+
+				// min������֤���ᳬ���ұ߽磬max��֤���ᳬ����߽�
+				x = Math.min(Math.max(0, x), width)
+				y = Math.min(Math.max(0, y), height)
+if(x>200 || y>200){
+     e.preventDefault();//��ֹ�¼�Ĭ����Ϊ
+				   return false
+				}
+				// ��Ԫ�ؼ�ʱ��λ
+				box.style.left = x + 'px'
+				box.style.top = y + 'px';
+				
+				console.log(x);
+			}
+		}
+
+		// �ͷ����ĺ���
+		function up(e){
+			dragging = false
+		}
+
+		// �������ڻ�ȡ����λ��
+		function getMouseXY(e){
+			var x = 0, y = 0
+			e = e || window.event
+			
+			if (e.pageX) {
+				x = e.pageX
+				y = e.pageY
+			} else {
+				x = e.clientX + document.body.scrollLeft - document.body.clientLeft
+				y = e.clientY + document.body.scrollTop - document.body.clientTop
+			}
+			return {
+				x: x,
+				y: y
+			}
+		}
+	})()
+
+
+
+
+// 	// 定义发布者
+// let publisher = {}
+// // 缓存列表，存放订阅者回调函数
+// publisher.list = []
+
+// // 增加订阅者
+// publisher.listen = function (fn) {
+//     // 将订阅消息添加到缓存列表
+//     this.list.push(fn)
+// }
+
+// // 发布消息
+// publisher.trigger = function () {
+//     for (let i = 0, fn; fn = this.list[i++];) {
+// 		console.log(arguments);
+//         fn.apply(this, arguments)
+//     }
+// }
+
+
+// // 小红订阅如下消息
+// publisher.listen(function (color, size) {
+// 	if(100>size>40){
+// 		console.log('小红订阅如下消息--颜色是：', color)
+//         console.log('小红订阅如下消息--尺码是：', size)
+// 	}
+    
+// })
+
+// // 小华订阅如下消息
+// publisher.listen(function (color, size) {
+//     if(size<40){
+// 		console.log('小华订阅如下消息--颜色是：', color)
+//         console.log('小华订阅如下消息--尺码是：', size)
+// 	}
+// })
+
+// // 小明订阅如下消息
+// publisher.listen(function (color, size) {
+//     if(size>140){
+// 		console.log('小明订阅如下消息--颜色是：', color)
+//         console.log('小明订阅如下消息--尺码是：', size)
+// 	}
+// })
+
+// publisher.trigger("红色", 34)
+// publisher.trigger("黑色", 42)
+
+
+var Event = function () {
+  this.list = {}
+  this.cache = {}
+}
+
+Event.prototype.add = function (area, client) {
+  if (!this.list[area]) this.list[area] = []
+  this.list[area].push(client)
+  this.cache[area].forEach(price => {
+    client.listen(area, price)
+  })
+}
+
+Event.prototype.remove = function (area, client) {
+  if (!this.list[area]) return
+  var index = this.list[area].findIndex(item => item === client)
+  this.list[area].splice(index, 1)
+}
+
+
+Event.prototype.triggle = function (area, price) {
+  if (!this.cache[area]) this.cache[area] = []
+  this.cache[area].push(price)
+
+  if (!this.list[area]) return
+  this.list[area].forEach(client => {
+    client.listen(area, price)
+  })
+}
+
+var Client = function (name) {
+  this.name = name
+}
+
+Client.prototype.listen = function (area, price) {
+  console.log(`${this.name}收到${area}平的房源报价${price}`)
+}
+
+
+var client1 = new Client('client1')
+var client2 = new Client('client2')
+
+
+var event = new Event()
+// event.add('80平', client1)
+// event.add('100平', client1)
+// event.add('80平', client2)
+// event.add('300平', client1)
+// event.remove('300平', client1)
+
+event.triggle('80平', 200) // client1收到80平平的房源报价200 client2收到80平平的房源报价200
+event.triggle('100平', 500) // client1收到100平平的房源报价500
+event.triggle('200平', 1000) //
+event.triggle('300平', 1000) //
+
+var client3 = new Client('client3')
+event.add('80平', client3)
+event.add('100平', client3)
+</script>
+</html>
