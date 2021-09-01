@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background: #2c3e50;
+        }
+
+        .calendar {
+            width: 400px;
+            margin: 50px auto;
+        }
+
+        .calendar-tip {
+            font-size: 16px;
+            text-align: center;
+            color: #fff;
+        }
+
+        .prev {
+            float: left;
+            cursor: pointer;
+        }
+
+        .next {
+            float: right;
+            cursor: pointer;
+        }
+
+        .calendar-month {
+            text-align: center;
+            margin: 10px 0;
+            color: #fff;
+        }
+
+        ul {
+            list-style: none;
+            display: flex;
+        }
+
+        li {
+            width: 57px;
+            text-align: center;
+            height: 55px;
+            line-height: 55px;
+            font-size: 16px;
+            color: #fff;
+        }
+
+        .calendar-day {
+            display: flex;
+        }
+
+        .calendar-day span {
+            flex: 1;
+            color: #fff;
+            text-align: center;
+            height: 40px;
+            line-height: 40px;
+
+        }
+
+        .calendar-data {
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        li {
+            width: 57px;
+            cursor: pointer;
+        }
+
+        li:hover {
+            background: #2d3436;
+        }
+
+        .calendar-data .on {
+            color: #d63031;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="calendar">
+        <div class="calendar-tip">
+            <span class="prev">上月</span>
+            <em id="year">2022年</em>
+            <span class="next">下月</span>
+        </div>
+        <div class="calendar-month">月</div>
+        <div class="calendar-day">
+            <span>日</span>
+            <span>一</span>
+            <span>二</span>
+            <span>三</span>
+            <span>四</span>
+            <span>五</span>
+            <span>六</span>
+        </div>
+        <ul class="calendar-data">
+          
+        </ul>
+    </div>
+    <script>
+        var date = new Date();
+        var year = document.querySelector("#year");
+        var month = document.querySelector(".calendar-month");
+        var calendarData = document.querySelector(".calendar-data");
+        var prev = document.querySelector(".prev");
+        var next = document.querySelector(".next");
+        var monthArr = ["一月", "二月", "三月", "四月", "五月", "六月", "七月", "八月", "九月", "十月", "十一月", "十二月"];
+        var y,m,day,d,html,today;
+        calendar();
+
+        function calendar() {
+            y = date.getFullYear();
+            year.innerHTML = y + "年";
+
+            m = date.getMonth();
+            month.innerHTML = monthArr[m];
+            day = new Date(y, m, 1).getDay(); //ܱȡÿٶՂ֚һͬˇלܸ
+            d = new Date(y, m + 1, -1).getDate() + 1; //ܱȡנʙͬ
+            html = "";
+
+            //ёÿٶՂ֚һ֮ͬǰքʱݤͮԤΪࠕ
+            for (var i = 0; i < day; i++) {
+                html += "<li> </li>";
+            }
+            
+            console.log(day);
+
+            for (var j = 1; j <= d; j++) {
+                if (y==new Date().getFullYear() && m==new Date().getMonth() && j== date.getDate()) {
+                    html += "<li class='on'>" + j + "</li>";
+                } else {
+                    html += "<li>" + j + "</li>";
+                }
+
+            }
+            calendarData.innerHTML = html;
+        }
+
+        prev.onclick = function () {
+            date.setMonth(date.getMonth() - 1);
+            calendar();
+        }
+
+        next.onclick = function () {
+            date.setMonth(date.getMonth() + 1);
+            calendar();
+        }
+    </script>
+</body>
+
+</html>
