@@ -32,7 +32,7 @@
       canvas.height = height;   
       function liveVideo(){  
         var URL = window.URL || window.webkitURL;   // 获取到window.URL对象
-        navigator.getUserMedia({  
+        navigator.mediaDevices.getUserMedia({  
           video: true  
         }, function(stream){  
           video.src = URL.createObjectURL(stream);   // 将获取到的视频流对象转换为地址
