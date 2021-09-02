@@ -62,6 +62,7 @@
                     let canvas = document.getElementById('canvas');
                     canvas.width = v.videoWidth;
                     canvas.height = v.videoHeight;
+                    //获取视频，资源，生产图片
                     canvas.getContext('2d').drawImage(v, 0, 0);
                     let data = canvas.toDataURL('image/webp');
                     document.getElementById('photo').setAttribute('src', data);
