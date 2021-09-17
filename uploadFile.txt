@@ -1,0 +1,13 @@
+handleClick() {
+      const e = document.createEvent('MouseEvents');
+      e.initEvent('click', true, true);
+      this.$refs.inputFile.dispatchEvent(e);
+    },
+    
+    
+    
+    this.$refs.inputFile.onchange = async (e) => {
+      const file = e.target.files[0];
+      this.file = file;
+      
+      }
