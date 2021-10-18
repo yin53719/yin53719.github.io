@@ -11,3 +11,6 @@ handleClick() {
       this.file = file;
       
       }
+      
+      const formData = new FormData();
+      formData.append('file', blob, blob.name);
